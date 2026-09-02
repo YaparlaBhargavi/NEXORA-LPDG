@@ -1,0 +1,190 @@
+\# Data Science Analysis
+
+
+
+\## Decision objective
+
+
+
+The operational goal is to select 15 gateways for a field visit every week.
+
+
+
+There are two main costs:
+
+
+
+\- €380 for a wrong visit;
+
+\- €600 when a broken gateway is left unattended for one week.
+
+
+
+The 15-visit limit is hard, so the decision is not simply to visit every gateway above a threshold.
+
+
+
+\## Risk score
+
+
+
+The final risk score combines two recent reliability signals:
+
+
+
+\- 70% normalized disconnection count;
+
+\- 30% normalized no-connection importance.
+
+
+
+The score is calculated using the most recent 7 days before each prediction Monday.
+
+
+
+Higher score means higher estimated reliability risk.
+
+
+
+\## Threshold experiment
+
+
+
+We tested different score thresholds on the available reviewed sample.
+
+
+
+| Threshold | Selected | Confirmed Schlecht | Potential missed | Estimated cost |
+
+|---:|---:|---:|---:|---:|
+
+| 0.10 | 14 | 13 | 39 | €23,780 |
+
+| 0.15 | 10 | 10 | 42 | €25,200 |
+
+| 0.20 | 9 | 9 | 43 | €25,800 |
+
+| 0.25 | 8 | 8 | 44 | €26,400 |
+
+| 0.30 | 7 | 7 | 45 | €27,000 |
+
+| 0.40 | 4 | 4 | 48 | €28,800 |
+
+| 0.50 | 4 | 4 | 48 | €28,800 |
+
+| 0.60 | 2 | 2 | 50 | €30,000 |
+
+| 0.70 | 1 | 1 | 51 | €30,600 |
+
+
+
+These costs are based only on the available reviewed sample and are not treated as a complete estimate for the whole gateway population.
+
+
+
+\## Why we do not use a fixed threshold
+
+
+
+A fixed threshold changes the number of selected gateways from week to week.
+
+
+
+For example, a high threshold can reduce unnecessary visits but also increases the number of potentially missed broken gateways.
+
+
+
+The field operation has a hard limit of 15 visits, so ranking all gateways and selecting the top 15 is more directly aligned with the operational requirement.
+
+
+
+\## Cost of moving the decision
+
+
+
+Moving the threshold upward makes the system more selective:
+
+
+
+\- fewer gateways are visited;
+
+\- potential wrong visits decrease;
+
+\- more potentially broken gateways can remain unattended.
+
+
+
+Moving the threshold downward does the opposite:
+
+
+
+\- more gateways are considered risky;
+
+\- fewer potentially broken gateways are missed;
+
+\- but unnecessary visits can increase.
+
+
+
+Therefore, the decision should be viewed as a cost trade-off rather than a search for one universally correct threshold.
+
+
+
+\## Evidence from engineer review
+
+
+
+For the Feb 16 prediction week, 11 of the selected 15 gateways had an available engineer review and were classified as `Schlecht`.
+
+
+
+No-connection importance alone had slightly higher historical AUC than disconnection count alone in our analysis.
+
+
+
+However, different combinations of the two signals produced very similar top-15 lists. Therefore, we retained the transparent 70/30 composite instead of introducing unnecessary complexity.
+
+
+
+\## Limitations
+
+
+
+The engineer review is a limited labelled sample and should not be treated as ground truth for all 320 gateways or all eight weeks.
+
+
+
+The available field-visit outcomes also occur before the challenge prediction period, so they are useful for understanding historical behavior but do not provide a complete validation of the eight scored weeks.
+
+
+
+Another two weeks of actual prediction-versus-field-outcome data would allow us to:
+
+
+
+1\. measure false visits;
+
+2\. measure missed broken gateways;
+
+3\. estimate the real weekly cost;
+
+4\. recalibrate the score weights;
+
+5\. reassess the visit-ranking strategy.
+
+
+
+\## Final Data Science decision
+
+
+
+Use a transparent 70/30 composite risk score and rank all available gateways.
+
+
+
+Visit the top 15 gateways every week.
+
+
+
+The method is intentionally simple, explainable and easy to modify when new field outcomes become available.
+

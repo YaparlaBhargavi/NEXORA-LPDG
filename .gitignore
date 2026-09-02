@@ -1,0 +1,7 @@
+(
+echo 03-challenge-data/
+echo *.parquet
+echo *.xlsx
+echo __pycache__/
+echo .ipynb_checkpoints/
+) > .gitignore
