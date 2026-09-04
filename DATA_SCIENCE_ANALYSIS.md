@@ -206,3 +206,15 @@ The score is a ranking tool, not a probability. A higher score means higher rela
 The practical decision is simple: use the 15 available visit slots on the highest-ranked gateways. Raising a threshold makes the system more selective but risks leaving more faulty gateways unattended. Lowering it increases coverage but can increase unnecessary visits. Because 15 visits are mandatory, the final ranking is used to allocate the fixed capacity.
 
 The current evidence supports the approach but does not prove its true fleet-wide accuracy. The most important next measurement is the actual outcome of each selected and unselected gateway after predictions are made.
+
+
+## Live Threshold Decision
+
+If asked to move the threshold during the live session, the decision rule is:
+
+- **Lower threshold:** visit more gateways; this can reduce missed faulty gateways but increases the chance of unnecessary visits.
+- **Raise threshold:** visit fewer gateways; this can reduce unnecessary visits but increases the chance of leaving faulty gateways unattended.
+- **Operational constraint:** only 15 visits can be dispatched each week, so the final production decision remains the top-15 ranking.
+- **Economic trade-off:** an unnecessary visit costs €380 once, while leaving a faulty gateway unattended costs €600 for every week it remains faulty. Therefore, earlier detection is economically more valuable than detecting the same fault later.
+
+The exact threshold should be changed only after comparing the resulting selection and estimated cost. The current evidence is insufficient to claim one universal threshold for the entire fleet.
