@@ -227,3 +227,10 @@ The historical field-visit data contains 642 visits. The recorded outcomes were 
 Among the recorded visit reasons, `Keine Verbindung` had a 65.0% historical fix rate, `Haeufige Neustarts` 56.4%, `Kunde meldet Ausfall` 53.5%, and `Zaehler nicht gelesen` 48.8%. `Auffaellige Statistik`, `Routinepruefung`, and `Signal schwach` had no recorded fixes in this dataset.
 
 This is supporting evidence rather than ground truth. Historical visits were triggered by previous human decisions, so the visited gateways are not a random sample of the fleet. The results therefore help us understand which reliability symptoms have historically led to successful interventions, but they cannot by themselves establish the predictive accuracy of the weekly top-15 ranking.
+
+
+### Historical Fix-Rate Chart
+
+![Historical Field-Visit Fix Rates](historical_fix_rates.png)
+
+This chart is descriptive evidence from historical visits. It should not be interpreted as predictive accuracy because historical visits were selected based on prior suspicion rather than randomly across the fleet.
