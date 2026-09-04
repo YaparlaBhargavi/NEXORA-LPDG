@@ -40,21 +40,13 @@ The final decisions were based on analysis performed on the supplied challenge d
 
 \## One AI mistake that was caught
 
+During development, an AI-generated Windows command was intended to create the `.gitignore` file, but the resulting file did not contain the intended ignore rules cleanly. This was caught by inspecting the actual `.gitignore` contents and then checking whether a real telemetry `.parquet` file was ignored with `git check-ignore`.
 
+The problem was corrected by rewriting `.gitignore` and verifying that the challenge data was not tracked by Git. A final `git status` and `git ls-files` check confirmed that the dataset was excluded from the repository.
 
-During development, an AI-generated command for comparing different score weightings contained a Python syntax error.
+This showed why AI-generated commands must be checked against their actual effect, especially for repository and data-safety operations.
 
-
-
-The command failed before producing any result. The error was identified from the terminal output, and the analysis was rerun using a simpler Python script.
-
-
-
-This reinforced the need to verify AI-generated code by actually running it and checking the results rather than assuming that generated code is correct.
-
-
-
-\## Human verification
+## Human verification
 
 
 
