@@ -1,8 +1,8 @@
-\# NEXORA 2026 – LPDG Gateway Visit Prioritization
+# NEXORA 2026  LPDG Gateway Visit Prioritization
 
 
 
-\## Project Overview
+## Project Overview
 
 
 
@@ -14,7 +14,7 @@ The system uses telemetry available before each prediction Monday and produces a
 
 
 
-\## Objective
+## Objective
 
 
 
@@ -26,7 +26,7 @@ The 15-visit limit is treated as a hard operational constraint.
 
 
 
-\## Prediction Weeks
+## Prediction Weeks
 
 
 
@@ -34,29 +34,29 @@ The solution generates predictions for:
 
 
 
-\- 2026-02-02
+- 2026-02-02
 
-\- 2026-02-09
+- 2026-02-09
 
-\- 2026-02-16
+- 2026-02-16
 
-\- 2026-02-23
+- 2026-02-23
 
-\- 2026-03-02
+- 2026-03-02
 
-\- 2026-03-09
+- 2026-03-09
 
-\- 2026-03-16
+- 2026-03-16
 
-\- 2026-03-23
-
-
-
-The final output contains 120 rows: 15 gateways × 8 weeks.
+- 2026-03-23
 
 
 
-\## Method
+The final output contains 120 rows: 15 gateways  8 weeks.
+
+
+
+## Method
 
 
 
@@ -64,7 +64,7 @@ The final solution uses a transparent composite risk score.
 
 
 
-\### Recent 7-day signals
+### Recent 7-day signals
 
 
 
@@ -82,7 +82,7 @@ Both signals are normalized across gateways for that prediction week.
 
 
 
-\### Final score
+### Final score
 
 
 
@@ -90,11 +90,11 @@ The score is:
 
 
 
-&#x20;   70% × normalized disconnection count
+&#x20;   70%  normalized disconnection count
 
 &#x20;   +
 
-&#x20;   30% × normalized no-connection importance
+&#x20;   30%  normalized no-connection importance
 
 
 
@@ -102,7 +102,7 @@ Gateways are sorted by this score and the top 15 are selected.
 
 
 
-\## Why this method?
+## Why this method?
 
 
 
@@ -122,7 +122,7 @@ The 70/30 combination was therefore retained because it combines two meaningful 
 
 
 
-\## Data Leakage Prevention
+## Data Leakage Prevention
 
 
 
@@ -138,7 +138,7 @@ No future-week telemetry is used to generate a prediction.
 
 
 
-\## Data Science Analysis
+## Data Science Analysis
 
 
 
@@ -146,9 +146,9 @@ The Data Science analysis considers the operational costs:
 
 
 
-\- €380 for a wrong visit
+- 380 for a wrong visit
 
-\- €600 for leaving a broken gateway unattended for one week
+- 600 for leaving a broken gateway unattended for one week
 
 
 
@@ -160,11 +160,11 @@ Because the field team has a hard limit of 15 visits, the final decision uses ra
 
 
 
-See `DATA\_SCIENCE\_ANALYSIS.md` for the detailed analysis.
+See `DATA_SCIENCE_ANALYSIS.md` for the detailed analysis.
 
 
 
-\## Validation
+## Validation
 
 
 
@@ -176,51 +176,51 @@ The output must contain:
 
 
 
-\- exactly 120 rows;
+- exactly 120 rows;
 
-\- 8 prediction weeks;
+- 8 prediction weeks;
 
-\- 15 gateways per week;
+- 15 gateways per week;
 
-\- ranks 1–15;
+- ranks 115;
 
-\- no duplicate gateway within a week;
+- no duplicate gateway within a week;
 
-\- valid gateway IDs;
+- valid gateway IDs;
 
-\- numeric scores;
+- numeric scores;
 
-\- non-empty reasons.
-
-
-
-\## Files
+- non-empty reasons.
 
 
 
-\### Main files
+## Files
 
 
 
-\- `create\_predictions.py` – generates the final predictions
-
-\- `predictions.csv` – final 120-row submission
-
-\- `validate\_submission.py` – supplied validation script
-
-\- `predictions\_baseline.csv` – supplied baseline result
-
-\- `baseline\_3sigma.py` – supplied baseline implementation
-
-\- `DECISIONS.md` – important project decisions and alternatives
-
-\- `DATA\_SCIENCE\_ANALYSIS.md` – cost and threshold analysis
-
-\- `AI-USAGE.md` – documentation of AI assistance and verification
+### Main files
 
 
 
-\## Limitations
+- `create_predictions.py`  generates the final predictions
+
+- `predictions.csv`  final 120-row submission
+
+- `validate_submission.py`  supplied validation script
+
+- `predictions_baseline.csv`  supplied baseline result
+
+- `baseline_3sigma.py`  supplied baseline implementation
+
+- `DECISIONS.md`  important project decisions and alternatives
+
+- `DATA_SCIENCE_ANALYSIS.md`  cost and threshold analysis
+
+- `AI-USAGE.md`  documentation of AI assistance and verification
+
+
+
+## Limitations
 
 
 
@@ -236,7 +236,7 @@ Additional weeks of prediction-versus-field outcomes would allow the score weigh
 
 
 
-\## Running the solution
+## Running the solution
 
 
 
@@ -246,19 +246,8 @@ From the project root:
 
 ```text
 
-python create\_predictions.py
+python create_predictions.py
 
-
-
-## Data Science Analysis
-
-The threshold analysis and uncertainty discussion are documented in `DATA_SCIENCE_ANALYSIS.md`.
-
-### Threshold Cost Trade-off
-
-![Threshold vs Estimated Cost](threshold_cost.png)
-
-The chart shows how the estimated reviewed-sample cost changes as the risk-score threshold moves. The figures are illustrative because the available reviewed sample is limited and is not the challenge ground truth.
 
 
 ## Running on a reviewer machine
