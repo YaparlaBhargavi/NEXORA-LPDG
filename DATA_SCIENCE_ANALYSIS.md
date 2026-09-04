@@ -195,3 +195,14 @@ The method is intentionally simple, explainable and easy to modify when new fiel
 The Feb 16 engineer-review check found 11 reviewed gateways among the selected 15, and all 11 were classified as Schlecht. The observed precision on this reviewed subset is therefore 100% (11/11). However, 11 observations are a small sample and the engineer review is not the challenge ground truth. Using a simple 95% binomial confidence interval, the underlying precision is approximately 74% to 100%. This wide range is why the 100% observed result is treated as encouraging evidence rather than a claim of guaranteed performance.
 
 The uncertainty also comes from selection bias: engineer reviews were not a random sample of the fleet, and historical field visits were triggered by prior suspicion. The most important unknowns are therefore the true false-visit rate and the number of faulty gateways left outside the top 15. Another two weeks of outcomes would materially narrow these uncertainties and allow the cost trade-off to be measured on actual operations rather than reviewed evidence.
+
+
+## Operations Manager Summary
+
+Every Monday, the system ranks gateways by recent reliability risk and recommends the 15 highest-priority gateways for field visits. The ranking is based on the previous 7 days of disconnections and no-connection importance.
+
+The score is a ranking tool, not a probability. A higher score means higher relative priority compared with other gateways that week.
+
+The practical decision is simple: use the 15 available visit slots on the highest-ranked gateways. Raising a threshold makes the system more selective but risks leaving more faulty gateways unattended. Lowering it increases coverage but can increase unnecessary visits. Because 15 visits are mandatory, the final ranking is used to allocate the fixed capacity.
+
+The current evidence supports the approach but does not prove its true fleet-wide accuracy. The most important next measurement is the actual outcome of each selected and unselected gateway after predictions are made.
