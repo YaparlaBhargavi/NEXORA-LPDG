@@ -6,7 +6,7 @@
 
 
 
-We define a gateway as needing a visit when it is among the top 15 gateways with the highest estimated reliability risk for that week.
+We define a gateway as needing a visit when it is among the top 15 gateways with the highest estimated reliability risk for that week. The decision is primarily an early-warning choice: we are prioritising gateways showing evidence that they may fail or become unreliable, rather than waiting until a gateway is certainly broken. This is consistent with the economics because an unattended fault costs €600 for every week it remains unresolved.
 
 
 
