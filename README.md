@@ -269,3 +269,7 @@ To use another data location:
 Then validate the generated submission with:
 
 `python validate_submission.py predictions.csv`
+
+## Live Demo Recording
+
+6-8 minute live demo recording: [Recording link to be added before final submission]
