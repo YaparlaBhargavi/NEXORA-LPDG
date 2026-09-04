@@ -248,3 +248,14 @@ From the project root:
 
 python create\_predictions.py
 
+
+
+## Data Science Analysis
+
+The threshold analysis and uncertainty discussion are documented in `DATA_SCIENCE_ANALYSIS.md`.
+
+### Threshold Cost Trade-off
+
+![Threshold vs Estimated Cost](threshold_cost.png)
+
+The chart shows how the estimated reviewed-sample cost changes as the risk-score threshold moves. The figures are illustrative because the available reviewed sample is limited and is not the challenge ground truth.
