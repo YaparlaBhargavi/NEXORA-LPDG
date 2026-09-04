@@ -218,3 +218,12 @@ If asked to move the threshold during the live session, the decision rule is:
 - **Economic trade-off:** an unnecessary visit costs €380 once, while leaving a faulty gateway unattended costs €600 for every week it remains faulty. Therefore, earlier detection is economically more valuable than detecting the same fault later.
 
 The exact threshold should be changed only after comparing the resulting selection and estimated cost. The current evidence is insufficient to claim one universal threshold for the entire fleet.
+
+
+## Historical Field-Visit Evidence
+
+The historical field-visit data contains 642 visits. The recorded outcomes were 223 `Fehler behoben` (fault fixed), 390 `Kein Fehler gefunden` (no fault found), and 29 `Kein Zugang` (no access).
+
+Among the recorded visit reasons, `Keine Verbindung` had a 65.0% historical fix rate, `Haeufige Neustarts` 56.4%, `Kunde meldet Ausfall` 53.5%, and `Zaehler nicht gelesen` 48.8%. `Auffaellige Statistik`, `Routinepruefung`, and `Signal schwach` had no recorded fixes in this dataset.
+
+This is supporting evidence rather than ground truth. Historical visits were triggered by previous human decisions, so the visited gateways are not a random sample of the fleet. The results therefore help us understand which reliability symptoms have historically led to successful interventions, but they cannot by themselves establish the predictive accuracy of the weekly top-15 ranking.
