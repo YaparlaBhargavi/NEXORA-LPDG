@@ -1,8 +1,13 @@
+import argparse
 import pandas as pd
 import numpy as np
 from pathlib import Path
 
-DATA = Path("./03-challenge-data/data")
+parser = argparse.ArgumentParser()
+parser.add_argument("--data", default="./data", help="Path to the challenge data folder")
+args = parser.parse_args()
+
+DATA = Path(args.data)
 OUT = Path("./predictions.csv")
 
 weeks = pd.date_range("2026-02-02", periods=8, freq="7D")
