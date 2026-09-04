@@ -259,3 +259,24 @@ The threshold analysis and uncertainty discussion are documented in `DATA_SCIENC
 ![Threshold vs Estimated Cost](threshold_cost.png)
 
 The chart shows how the estimated reviewed-sample cost changes as the risk-score threshold moves. The figures are illustrative because the available reviewed sample is limited and is not the challenge ground truth.
+
+
+## Running on a reviewer machine
+
+Place the supplied challenge data at the project root as `data/`. The repository does not contain the dataset.
+
+Expected structure:
+
+`data/telemetry/month=YYYY-MM/part-*.parquet`
+
+Run the solution with:
+
+`python create_predictions.py`
+
+To use another data location:
+
+`python create_predictions.py --data path/to/data`
+
+Then validate the generated submission with:
+
+`python validate_submission.py predictions.csv`
