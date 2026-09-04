@@ -1,7 +1,6 @@
-(
-echo 03-challenge-data/
-echo *.parquet
-echo *.xlsx
-echo __pycache__/
-echo .ipynb_checkpoints/
-) > .gitignore
+03-challenge-data/ 
+03-challenge-data.zip 
+*.parquet 
+*.xlsx 
+__pycache__/ 
+.ipynb_checkpoints/
