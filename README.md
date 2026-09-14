@@ -239,34 +239,28 @@ Additional weeks of prediction-versus-field outcomes would allow the score weigh
 
 From the project root:
 
-```text
-python create_predictions.py
+`python create_predictions.py`
 
+## Running on a reviewer machine
 
-Running on a reviewer machine
-
-Place the supplied challenge data at the project root as data/. The repository does not contain the dataset.
+Place the supplied challenge data at the project root as `data/`. The repository does not contain the dataset.
 
 Expected structure:
 
-data/telemetry/month=YYYY-MM/part-*.parquet
+`data/telemetry/month=YYYY-MM/part-*.parquet`
 
 Run the solution with:
 
-python create_predictions.py
+`python create_predictions.py`
 
 To use another data location:
 
-python create_predictions.py --data path/to/data
+`python create_predictions.py --data path/to/data`
 
 Then validate the generated submission with:
 
-python validate_submission.py predictions.csv
+`python validate_submission.py predictions.csv`
 
-Live Demo Recording
+## Live Demo Recording
 
-6-8 minute live demo recording: 
-https://drive.google.com/file/d/1ayLt04slEwx2dA4YFiVjR5GGQiN-ye2O/view?usp=sharing
-
-
-yLt04slEwx2dA4YFiVjR5GGQiN-ye2O/view?usp=sharing
+6-8 minute live demo recording: https://drive.google.com/file/d/1ayLt04slEwx2dA4YFiVjR5GGQiN-ye2O/view?usp=sharing
