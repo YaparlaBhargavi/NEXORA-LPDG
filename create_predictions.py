@@ -4,15 +4,36 @@ import numpy as np
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--data", default="./data", help="Path to the challenge data folder")
+parser.add_argument(
+    "--data",
+    default="./data",
+    help="Path to the challenge data folder"
+)
+parser.add_argument(
+    "--start-week",
+    default="2026-02-02",
+    help="First prediction Monday"
+)
+parser.add_argument(
+    "--num-weeks",
+    type=int,
+    default=8,
+    help="Number of weekly predictions"
+)
 args = parser.parse_args()
 
 DATA = Path(args.data)
 OUT = Path("./predictions.csv")
 
-weeks = pd.date_range("2026-02-02", periods=8, freq="7D")
+weeks = pd.date_range(
+    args.start_week,
+    periods=args.num_weeks,
+    freq="7D"
+)
 
-files = list((DATA / "telemetry").glob("month=*/part-*.parquet"))
+files = sorted(
+    (DATA / "telemetry").glob("month=*/part-*.parquet")
+)
 
 cols = [
     "gateway_id",
@@ -26,6 +47,11 @@ parts = []
 for f in files:
     x = pd.read_parquet(f, columns=cols)
     parts.append(x)
+
+if not parts:
+    raise FileNotFoundError(
+        f"No telemetry parquet files found in {DATA / 'telemetry'}"
+    )
 
 x = pd.concat(parts, ignore_index=True)
 
@@ -72,9 +98,13 @@ for monday in weeks:
         0.3 * q["no_conn_importance_norm"]
     )
 
+    # Deterministic ranking:
+    # 1. Higher score
+    # 2. Higher disconnection count
+    # 3. Gateway ID
     q = q.sort_values(
-        ["score", "disconnection_cnt"],
-        ascending=[False, False]
+        ["score", "disconnection_cnt", "gateway_id"],
+        ascending=[False, False, True]
     ).head(15)
 
     for rank, row in enumerate(q.itertuples(index=False), 1):
@@ -84,7 +114,12 @@ for monday in weeks:
             "rank": rank,
             "gateway_id": row.gateway_id,
             "score": round(float(row.score), 6),
-            "reason": f"Recent 7-day risk: {int(row.disconnection_cnt)} disconnections; no-connection relative score {float(row.no_conn_importance_norm)*100:.0f}%; composite score {float(row.score):.3f}.",
+            "reason": (
+                f"Recent 7-day risk: {int(row.disconnection_cnt)} "
+                f"disconnections; no-connection relative score "
+                f"{float(row.no_conn_importance_norm)*100:.0f}%; "
+                f"composite score {float(row.score):.3f}."
+            ),
         })
 
 pred = pd.DataFrame(rows)

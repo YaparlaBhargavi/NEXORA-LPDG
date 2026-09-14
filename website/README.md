@@ -52,7 +52,8 @@ The solution generates predictions for:
 
 
 
-The final output contains 120 rows: 15 gateways × 8 weeks.
+The final output contains 120 rows: 15 gateways  8 weeks.
+
 
 
 ## Method
@@ -181,7 +182,7 @@ The output must contain:
 
 - 15 gateways per week;
 
-- ranks 1–15;
+- ranks 115;
 
 - no duplicate gateway within a week;
 
@@ -244,6 +245,7 @@ From the project root:
 
 
 ```text
+
 python create_predictions.py
 
 
@@ -270,4 +272,4 @@ Then validate the generated submission with:
 
 ## Live Demo Recording
 
-6-8 minute live demo recording: https://drive.google.com/file/d/1ayLt04slEwx2dA4YFiVjR5GGQiN-ye2O/view?usp=sharing
+6-8 minute live demo recording: [Recording link to be added before final submission]

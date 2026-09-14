@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NEXORA 2026 | Gateway Visit Prioritization</title>
+  <style>
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      font: 16px/1.6 Arial, sans-serif;
+      background: #f6f8fb;
+      color: #172033
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #111827;
+      color: #fff;
+      padding: 14px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 12px #0002
+    }
+
+    nav a {
+      color: #dbeafe;
+      text-decoration: none;
+      margin-left: 16px;
+      font-size: 14px
+    }
+
+    .hero {
+      padding: 80px 7%;
+      background: linear-gradient(135deg, #111827, #29446f);
+      color: #fff
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      line-height: 1.1;
+      margin: 15px 0
+    }
+
+    .hero p {
+      max-width: 760px;
+      font-size: 19px;
+      color: #dbe4f5
+    }
+
+    .stats {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px
+    }
+
+    .stat {
+      padding: 16px 20px;
+      border: 1px solid #ffffff30;
+      border-radius: 14px;
+      background: #ffffff12
+    }
+
+    .stat b {
+      display: block;
+      font-size: 27px
+    }
+
+    section {
+      max-width: 1180px;
+      margin: auto;
+      padding: 55px 7%
+    }
+
+    h2 {
+      font-size: 30px;
+      margin: 0 0 8px
+    }
+
+    h3 {
+      color: #23446f
+    }
+
+    .sub {
+      color: #667085;
+      margin-bottom: 25px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px
+    }
+
+    .card,
+    .video {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: 0 5px 18px #11182708
+    }
+
+    .highlight {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      padding: 17px 20px;
+      border-radius: 8px;
+      margin: 20px 0
+    }
+
+    .formula {
+      background: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 22px;
+      border-radius: 13px;
+      font-size: 20px;
+      margin: 20px 0
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left
+    }
+
+    th {
+      background: #eef2f7
+    }
+
+    .command {
+      background: #0b1220;
+      color: #d1fae5;
+      padding: 14px;
+      border-radius: 8px;
+      font-family: Consolas, monospace;
+      overflow: auto
+    }
+
+    .video {
+      background: #111827;
+      color: #fff;
+      margin-top: 18px
+    }
+
+    .video h3 {
+      color: #fff
+    }
+
+    .placeholder {
+      border: 2px dashed #64748b;
+      padding: 35px;
+      text-align: center;
+      border-radius: 10px;
+      color: #cbd5e1;
+      margin-top: 15px
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+      background: #000
+    }
+
+    footer {
+      background: #111827;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 32px
+    }
+
+    @media(max-width:700px) {
+      .hero h1 {
+        font-size: 36px
+      }
+
+      nav .links {
+        display: none
+      }
+    }
+
+    .video-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px
+    }
+
+    .video-tools input {
+      flex: 1;
+      min-width: 220px;
+      padding: 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px
+    }
+
+    .video-tools button {
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      cursor: pointer
+    }
+
+    .small {
+      font-size: 13px;
+      color: #667085
+    }
+
+    .chart {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 10px
+    }
+
+    .ai-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px
+    }
+
+    .ai-item {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 13px;
+      padding: 19px
+    }
+
+    .zoomable-image {
+      cursor: zoom-in;
+      transition: transform 0.2s;
+    }
+
+    .zoomable-image:hover {
+      transform: scale(1.02);
+    }
+
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 30px;
+    }
+
+    .image-modal img {
+      max-width: 90%;
+      max-height: 78vh;
+      object-fit: contain;
+      transition: transform 0.25s ease;
+    }
+
+    .image-controls {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .image-controls button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: white;
+      color: #111827;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .image-controls button:hover {
+      background: #e5e7eb;
+    }
+
+    .close-image {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 35px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <nav><b>NEXORA 2026</b>
+    <div class="links"><a href="#problem">Problem</a><a href="#method">Method</a><a href="#journey">My Approach</a><a
+        href="#cost">Cost</a><a href="#demo">Demo</a><a href="#media">Media</a><a href="#limits">Limits</a></div>
+  </nav>
+
+  <header class="hero">
+    <div>LPDG × RGM Innovation Challenge · Data Science Track</div>
+    <h1>Gateway Visit Prioritization</h1>
+    <p>A transparent Data Science approach for deciding which 15 gateways should receive field visits each week.</p>
+    <div class="stats">
+      <div class="stat"><b>~320</b>Gateways</div>
+      <div class="stat"><b>15</b>Visits / week</div>
+      <div class="stat"><b>8</b>Prediction weeks</div>
+      <div class="stat"><b>120</b>Final predictions</div>
+    </div>
+  </header>
+
+  <section id="problem">
+    <h2>1. The Problem</h2>
+
+    <p class="sub">
+      With hundreds of gateways but limited field capacity, the real challenge
+      is deciding <b>which gateways should be visited first</b>.
+    </p>
+
+    <div class="highlight">
+      <h3 style="margin-top:0;">🎯 The Core Challenge</h3>
+      <p>
+        LPDG manages around <b>320 gateways</b>, but the field team can perform
+        only <b>15 visits per week</b>. Therefore, every week we need to turn
+        available gateway data into a clear and actionable priority list.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card" style="border-top:5px solid #2563eb;">
+        <div style="font-size:34px;"></div>
+        <h3>1. Input — Gateway Data</h3>
+        <p>
+          Recent <b>gateway reliability telemetry</b> available before each
+          prediction Monday is used as the evidence for the decision.
+        </p>
+      </div>
+
+      <div class="card" style="border-top:5px solid #dc2626;">
+        <div style="font-size:34px;"></div>
+        <h3>2. Constraint — Only 15 Visits</h3>
+        <p>
+          Around <b>320 gateways</b> compete for only
+          <b>15 field visits every week</b>. This makes prioritization essential.
+        </p>
+      </div>
+
+      <div class="card" style="border-top:5px solid #059669;">
+        <div style="font-size:34px;"></div>
+        <h3>3. Output — Priority List</h3>
+        <p>
+          The solution produces a <b>ranked list of 15 gateways</b>, along with
+          a clear reason explaining why each gateway was selected.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="formula" style="font-size:18px;">
+      ~320 Gateways → Limited Capacity → Prioritize → Top 15 Visits
+    </div>
+
+    <div class="highlight">
+      <h3 style="margin-top:0;">💡 The Real Question</h3>
+      <p style="font-size:18px;">
+        <b>
+          “If we can visit only 15 gateways this week, which 15 should we visit
+          first — and why?”
+        </b>
+      </p>
+    </div>
+
+  </section>
+
+  <section>
+    <h2>2. What “Needs a Visit” Means</h2>
+
+    <p class="sub">
+      Before building the score, I first defined exactly what a field visit
+      should mean.
+    </p>
+
+    <div class="highlight">
+      <h3 style="margin-top:0;">🎯 My Decision Definition</h3>
+      <p>
+        A gateway <b>needs a visit</b> when it is among the
+        <b>15 gateways with the highest estimated reliability risk</b>
+        for that week.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card" style="border-top:5px solid #2563eb;">
+        <div style="font-size:34px;"></div>
+        <h3>Score Every Gateway</h3>
+        <p>
+          Each gateway receives a risk score based on its recent reliability
+          behaviour.
+        </p>
+      </div>
+
+      <div class="card" style="border-top:5px solid #7c3aed;">
+        <div style="font-size:34px;">⬇️</div>
+        <h3>Rank by Risk</h3>
+        <p>
+          Gateways are sorted from <b>highest estimated risk to lowest</b>.
+        </p>
+      </div>
+
+      <div class="card" style="border-top:5px solid #059669;">
+        <div style="font-size:34px;"></div>
+        <h3>Select Top 15</h3>
+        <p>
+          The first <b>15 gateways</b> become the weekly field-visit
+          priority list.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="formula" style="font-size:18px;">
+      Score → Rank → Top 15 → Field Visit
+    </div>
+
+    <div class="highlight">
+      <h3 style="margin-top:0;">Why Ranking Instead of a Fixed Threshold?</h3>
+      <p>
+        The field team has a hard capacity of <b>15 visits per week</b>.
+        A fixed threshold could produce too many or too few gateways.
+        Ranking always gives the operations team a clear
+        <b>priority order of 15 gateways</b>.
+      </p>
+    </div>
+
+    <p class="sub" style="text-align:center;margin-top:25px;">
+      <b>
+        The goal is not to find every possible fault — it is to decide
+        who should be visited first when capacity is limited.
+      </b>
+    </p>
+  </section>
+
+  <section id="method">
+    <section>
+      <h2>3. Data & Leakage Prevention</h2>
+      <p class="sub">
+        Only information that would genuinely be available before the weekly
+        decision is used to rank the gateways.
+      </p>
+
+      <div class="grid">
+
+        <div class="card" style="border-top:5px solid #2563eb;">
+          <div style="font-size:34px;">🕛</div>
+          <h3>Pre-Monday Cutoff</h3>
+          <p>
+            Only telemetry available <b>strictly before Monday</b> is included.
+            Data from the prediction week is never used.
+          </p>
+
+          <div style="
+          margin-top:15px;
+          padding:12px;
+          background:#eff6ff;
+          border-radius:10px;
+          text-align:center;
+          font-weight:bold;
+        ">
+            Data Available → Decision
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid #059669;">
+          <div style="font-size:34px;">📅</div>
+          <h3>Recent 7 Days</h3>
+          <p>
+            The scoring window covers the <b>seven days immediately before
+              Monday</b>, keeping the ranking focused on recent gateway behaviour.
+          </p>
+
+          <div style="
+          margin-top:15px;
+          display:flex;
+          justify-content:space-between;
+          gap:4px;
+        ">
+            <span style="padding:8px;background:#ecfdf5;border-radius:6px;">D-7</span>
+            <span style="padding:8px;background:#ecfdf5;border-radius:6px;">D-6</span>
+            <span style="padding:8px;background:#ecfdf5;border-radius:6px;">...</span>
+            <span style="padding:8px;background:#ecfdf5;border-radius:6px;">D-1</span>
+            <span style="padding:8px;background:#d1fae5;border-radius:6px;">MON</span>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid #7c3aed;">
+          <div style="font-size:34px;">📊</div>
+          <h3>Two Key Signals</h3>
+          <p>
+            For every gateway, I aggregate:
+          </p>
+
+          <ul style="padding-left:20px;">
+            <li><b>Disconnection count</b></li>
+            <li><b>No-connection importance</b></li>
+          </ul>
+
+          <p class="small">
+            These signals are then normalized before calculating the final score.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="highlight" style="margin-top:25px;">
+        <h3 style="margin-top:0;">🔒 No Future Leakage</h3>
+        <p>
+          The most important rule is simple:
+          <b>the model must not see the future.</b>
+        </p>
+        <p>
+          For each prediction week, only telemetry that was already available
+          before that Monday is used. This makes the weekly ranking reproducible
+          and closer to how the decision would work in real operations.
+        </p>
+      </div>
+
+      <div class="formula" style="font-size:18px;">
+        Previous 7 Days → Aggregate Signals → Normalize → Risk Score
+      </div>
+
+    </section>
+
+    <section>
+      <h2>4. Risk Score</h2>
+      <p class="sub">
+        A simple, transparent score that converts recent gateway behaviour
+        into a clear priority for field visits.
+      </p>
+
+      <div class="formula">
+        Risk Score =
+        <span style="font-size:24px;">0.7 × Disconnection Risk</span>
+        +
+        <span style="font-size:24px;">0.3 × No-Connection Risk</span>
+      </div>
+
+      <div class="grid">
+
+        <div class="card" style="border-top:5px solid #2563eb;">
+          <div style="font-size:34px;">📡</div>
+          <h3>70% · Disconnection</h3>
+          <p>
+            The <b>primary reliability signal</b>. More recent disconnections
+            indicate stronger evidence of connectivity problems.
+          </p>
+          <div style="
+          margin-top:15px;
+          height:8px;
+          background:#e5e7eb;
+          border-radius:10px;
+          overflow:hidden;
+        ">
+            <div style="
+            width:70%;
+            height:100%;
+            background:#2563eb;
+            border-radius:10px;
+          "></div>
+          </div>
+          <p class="small"><b>Primary signal</b></p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #7c3aed;">
+          <div style="font-size:34px;">⚠️</div>
+          <h3>30% · No-Connection</h3>
+          <p>
+            A <b>secondary reliability signal</b> that adds additional evidence
+            when prioritizing gateways.
+          </p>
+          <div style="
+          margin-top:15px;
+          height:8px;
+          background:#e5e7eb;
+          border-radius:10px;
+          overflow:hidden;
+        ">
+            <div style="
+            width:30%;
+            height:100%;
+            background:#7c3aed;
+            border-radius:10px;
+          "></div>
+          </div>
+          <p class="small"><b>Secondary signal</b></p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #059669;">
+          <div style="font-size:34px;">🎯</div>
+          <h3>Top 15 · Final Priority</h3>
+          <p>
+            All gateways are scored and sorted from <b>highest to lowest risk</b>.
+            The 15 highest-scoring gateways become the weekly visit priority.
+          </p>
+
+          <div style="
+          margin-top:15px;
+          padding:12px;
+          background:#ecfdf5;
+          border-radius:10px;
+          text-align:center;
+          font-weight:bold;
+          color:#065f46;
+        ">
+            Highest Risk → Visit First
+          </div>
+        </div>
+
+      </div>
+
+      <div class="highlight" style="margin-top:25px;">
+        <b>Important:</b>
+        The score is a <b>ranking tool, not a probability</b>.
+        A higher score means that the gateway has higher estimated reliability
+        risk relative to the other gateways in that prediction week.
+      </div>
+
+      <div class="formula" style="font-size:18px;">
+        Recent Data → Normalize Signals → Calculate Score → Sort → Select Top 15
+      </div>
+
+    </section>
+    <section>
+      <h2>5. Why This Method?</h2>
+      <p class="sub">
+        I compared different approaches and selected the one that gives a good
+        balance between evidence, simplicity and explainability.
+      </p>
+
+      <div class="grid">
+
+        <div class="card">
+          <div style="font-size:32px;">🔍</div>
+          <h3>Alternative Tested</h3>
+          <p>
+            I tested <b>no-connection importance alone</b>. It achieved slightly
+            better historical AUC, so it was considered as a serious alternative.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:32px;">⚖️</div>
+          <h3>Weight Comparison</h3>
+          <p>
+            Different weight combinations produced <b>very similar top-15
+              gateway lists</b> across the challenge weeks.
+          </p>
+        </div>
+
+        <div class="card" style="border:2px solid #2563eb;background:#eff6ff;">
+          <div style="font-size:32px;">🎯</div>
+          <h3>Final Choice</h3>
+          <p>
+            I selected <b>70% disconnection + 30% no-connection importance</b>
+            because it combines meaningful signals while remaining transparent
+            and easy to modify.
+          </p>
+
+          <div style="
+        margin-top:15px;
+        padding:12px;
+        background:#2563eb;
+        color:white;
+        border-radius:10px;
+        text-align:center;
+        font-weight:bold;
+      ">
+            FINAL METHOD: 70 / 30
+          </div>
+        </div>
+
+      </div>
+
+      <div class="highlight" style="margin-top:25px;">
+        <b>Why this method?</b>
+        It is simple enough to explain, uses recent reliability evidence,
+        matches the 15-visit operational constraint, and can be improved when
+        new field outcomes become available.
+      </div>
+
+      <div class="formula">
+        Recent Evidence → Transparent Score → Top 15 → Field Action
+      </div>
+    </section>
+
+    <section id="cost">
+      <h2>6. Cost Decision</h2>
+      <table>
+        <tr>
+          <th>Cost</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>€380</td>
+          <td>Cost per dispatched field visit</td>
+        </tr>
+        <tr>
+          <td>€600 / week</td>
+          <td>Cost when a faulty gateway remains unattended for one week</td>
+        </tr>
+      </table>
+      <div class="highlight"><b>Trade-off:</b> A more aggressive threshold can increase unnecessary visits; a more
+        conservative threshold can increase missed-fault risk. Because capacity is fixed at 15, threshold changes are
+        sensitivity analysis while production remains top 15.</div>
+    </section>
+
+    <section>
+      <h2>7. Final Output & Validation</h2>
+      <div class="card">
+        <p><b>120 rows = 15 gateways × 8 challenge weeks.</b></p>
+        <p>Ranks are 1–15 per week, scores are numeric, reasons are present, and duplicate gateway selections within a
+          week are not allowed.</p>
+        <div class="command">python validate_submission.py predictions.csv</div>
+        <p><b>Expected:</b> predictions.csv: OK</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>8. Threshold Sensitivity — February 16</h2>
+      <table>
+        <tr>
+          <th>Threshold</th>
+          <th>High-risk candidates</th>
+        </tr>
+        <tr>
+          <td>0.10</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>0.20</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <td>0.30</td>
+          <td>9</td>
+        </tr>
+        <tr>
+          <td>0.50</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>0.70</td>
+          <td>1</td>
+        </tr>
+      </table>
+      <div class="highlight"><b>Top-15 cutoff:</b> approximately 0.1423 for the February 16 prediction week.</div>
+    </section>
+
+    <section id="demo">
+      <h2>9. Presentation & Demo Video</h2>
+      <p class="sub">One complete 6–8 minute presentation video explaining the project from problem to final solution.
+      </p>
+      <div class="video">
+        <h3>My NEXORA Presentation</h3>
+        <p>To add your video manually, put your MP4 file in the same folder as this website and name it
+          <b>nexora-demo.mp4</b>. Then refresh the page.
+        </p>
+        <video controls preload="metadata">
+          <source src="nexora-demo.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <p class="small">For other people to see the video, the MP4 must be deployed/uploaded together with this
+          website.
+        </p>
+      </div>
+    </section>
+
+    <div class="highlight" style="
+      margin:25px 0 30px;
+      border-left:5px solid #2563eb;
+      background:#eff6ff;
+    ">
+
+      <h3 style="margin-top:0;">🗓️ My Complete Project Plan</h3>
+
+      <p>
+        I divided the available time into clear phases so that I could first
+        understand the problem, then analyse the data, build the solution,
+        test it and finally prepare the submission.
+      </p>
+
+      <div class="grid" style="margin-top:20px;">
+
+        <div class="card">
+          <h3>Aug 31</h3>
+          <p><b>Understand the Challenge</b></p>
+          <p>
+            Studied the challenge requirements and prepared questions to clarify
+            the problem and constraints.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Sep 1–3</h3>
+          <p><b>Explore the Data</b></p>
+          <p>
+            Explored the available datasets, telemetry signals and the supplied
+            baseline approach.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Sep 4–5</h3>
+          <p><b>Finalize the Approach</b></p>
+          <p>
+            Compared possible approaches, selected the Data Science direction
+            and prepared final questions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Sep 6–9</h3>
+          <p><b>Build the Solution</b></p>
+          <p>
+            Built Part 1 and developed the selected Data Science approach,
+            including the scoring and prediction workflow.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Sep 10–12</h3>
+          <p><b>Testing & Improvement</b></p>
+          <p>
+            Tested the predictions, compared approaches, checked validation
+            and improved the solution based on the evidence.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Sep 13–14</h3>
+          <p><b>Documentation</b></p>
+          <p>
+            Prepared the decisions, Data Science analysis, limitations and
+            AI-usage documentation.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Sep 15</h3>
+          <p><b>Final Testing & Video</b></p>
+          <p>
+            Performed final checks, prepared the presentation and recorded
+            the project demonstration.
+          </p>
+        </div>
+
+        <div class="card" style="
+          border:2px solid #dc2626;
+          background:#fff7f7;
+        ">
+          <h3 style="color:#b91c1c;">Sep 16 🚨</h3>
+          <p><b>Final Submission</b></p>
+          <p>
+            Final review and submission completed
+            <b>before 11:59 PM</b>.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="formula" style="font-size:18px;margin-top:25px;">
+        Understand → Explore → Decide → Build → Test → Document → Submit
+      </div>
+
+
+    </div>
+
+    <section id="ai">
+      <h2>11. How I Used AI</h2>
+
+      <p class="sub">
+        AI was used as a supporting tool during the project. The problem definition,
+        experimentation, decisions and final verification were done by me.
+      </p>
+
+      <div class="grid">
+
+        <div class="card" style="border-top:5px solid #2563eb;">
+          <div style="font-size:32px;">💡</div>
+          <h3>Understanding the Problem</h3>
+          <p>
+            When some requirements or technical terms were unclear, I used AI
+            to explain them in simpler terms so I could understand the problem
+            correctly.
+          </p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #059669;">
+          <div style="font-size:32px;">🔎</div>
+          <h3>Exploring the Data</h3>
+          <p>
+            I asked AI for suggestions on how to inspect the telemetry and
+            identify useful signals. I then ran the Python analysis myself
+            and checked the actual results.
+          </p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #7c3aed;">
+          <div style="font-size:32px;">🐍</div>
+          <h3>Python Help</h3>
+          <p>
+            When I was stuck with Python code, commands or errors, I used AI
+            to understand the problem and get possible solutions. I tested
+            those solutions locally before using them.
+          </p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #d97706;">
+          <div style="font-size:32px;">⚖️</div>
+          <h3>Comparing Approaches</h3>
+          <p>
+            I used AI to discuss different scoring ideas, weighting choices
+            and their advantages and disadvantages. I made the final method
+            choice based on the actual analysis results.
+          </p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #0891b2;">
+          <div style="font-size:32px;">📝</div>
+          <h3>Writing & Explanation</h3>
+          <p>
+            I used AI to improve the clarity of documentation and explanations.
+            The technical content and project decisions came from my own work
+            and analysis.
+          </p>
+        </div>
+
+        <div class="card" style="border-top:5px solid #16a34a;">
+          <div style="font-size:32px;">✅</div>
+          <h3>Final Verification</h3>
+          <p>
+            I did not blindly accept AI output. I checked the generated code,
+            commands, prediction results, validation output and Git status
+            against my actual project files.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="highlight" style="
+    margin-top:30px;
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+  ">
+
+        <h3 style="margin-top:0;">🤝 My Role vs AI's Role</h3>
+
+        <div class="grid">
+
+          <div>
+            <h3>👤 My Role</h3>
+            <p>
+              Defined the problem, explored the data, tested approaches,
+              selected the final method, interpreted results and verified
+              the final solution.
+            </p>
+          </div>
+
+          <div>
+            <h3>🤖 AI's Role</h3>
+            <p>
+              Explained concepts, suggested approaches, helped debug code,
+              answered questions and helped improve documentation.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="highlight" style="
+    margin-top:20px;
+    background:#fff7f7;
+    border-left:5px solid #dc2626;
+  ">
+
+        <h3 style="margin-top:0;color:#b91c1c;">
+          ⚠️ An AI Mistake I Caught
+        </h3>
+
+        <p>
+          AI suggested a Windows command for creating the
+          <b>.gitignore</b> file, but the generated command produced incorrect
+          file contents.
+        </p>
+
+        <p>
+          I noticed the problem by checking the actual file and verifying
+          Git's ignore behaviour. I corrected the file and confirmed that
+          the challenge dataset was not being tracked.
+        </p>
+
+        <p>
+          This showed me that AI output should be treated as a
+          <b>suggestion, not as automatically correct.</b>
+        </p>
+      </div>
+
+      <div class="formula" style="font-size:18px;">
+        My Work + AI Assistance + My Verification = Final Solution
+      </div>
+
+      <p class="sub" style="text-align:center;margin-top:25px;">
+        <b>
+          AI helped me move faster when I was stuck — but I remained responsible
+          for the decisions and the final result.
+        </b>
+      </p>
+
+    </section>
+    <section id="charts">
+      <h2>12. Data Science Charts</h2>
+      <p class="sub">These charts support the cost and historical field-visit analysis.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Threshold Cost Analysis</h3>
+          <img class="chart" src="threshold_cost.png" alt="Threshold cost analysis chart"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <p class="small" style="display:none">Add <b>threshold.png</b> beside index.html to display this chart.</p>
+        </div>
+        <div class="card">
+          <h3>Historical Field-Visit Fix Rates</h3>
+          <img class="chart" src="historical_fix_rates.png" alt="Historical field visit fix rates chart"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <p class="small" style="display:none">Add <b>historical_fixed_rates.png</b> beside index.html to display this
+            chart. The project chart may also be named <b>historical_fix_rates.png</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="media">
+      <h2>Project Documents</h2>
+
+      <div class="grid" style="margin-top:18px">
+        <div class="card">
+          <h3>Project Documents</h3>
+          <p><a href="DECISIONS.md" target="_blank">DECISIONS.md</a></p>
+          <p><a href="DATA_SCIENCE_ANALYSIS.md" target="_blank">DATA_SCIENCE_ANALYSIS.md</a></p>
+          <p><a href="AI-USAGE.md" target="_blank">AI-USAGE.md</a></p>
+          <p><a href="README.md" target="_blank">README.md</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="limits">
+      <h2>14. Limitations & What Comes Next</h2>
+
+      <p class="sub">
+        The solution is useful, but it is important to be honest about what
+        the current data can and cannot prove.
+      </p>
+
+      <div class="grid">
+
+        <div class="card" style="border-top:5px solid #dc2626;">
+          <div style="font-size:34px;">🏷️</div>
+          <h3>Limited Labels</h3>
+          <p>
+            The available engineer reviews provide only a
+            <b>small labelled sample</b>. They do not represent complete
+            ground truth for all gateways and all weeks.
+          </p>
+
+          <div style="
+            margin-top:15px;
+            padding:10px;
+            background:#fef2f2;
+            border-radius:8px;
+            color:#991b1b;
+            font-size:14px;
+          ">
+            ⚠️ Evidence is encouraging, but limited.
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid #d97706;">
+          <div style="font-size:34px;">🔎</div>
+          <h3>Selection Bias</h3>
+          <p>
+            Historical field visits were not random. Gateways were often visited
+            because there was already a reason for suspicion.
+          </p>
+
+          <div style="
+            margin-top:15px;
+            padding:10px;
+            background:#fffbeb;
+            border-radius:8px;
+            color:#92400e;
+            font-size:14px;
+          ">
+            ⚠️ Historical visits are supporting evidence, not perfect ground truth.
+          </div>
+        </div>
+
+        <div class="card" style="border-top:5px solid #2563eb;">
+          <div style="font-size:34px;">📅</div>
+          <h3>Another Two Weeks</h3>
+          <p>
+            New field outcomes would allow us to measure
+            <b>false visits, missed broken gateways and actual weekly cost</b>.
+          </p>
+
+          <div style="
+            margin-top:15px;
+            padding:10px;
+            background:#eff6ff;
+            border-radius:8px;
+            color:#1e40af;
+            font-size:14px;
+          ">
+            📈 More evidence → Better calibration
+          </div>
+        </div>
+
+      </div>
+
+      <div class="highlight" style="margin-top:25px;">
+        <h3 style="margin-top:0;">🚀 What Would I Do Next?</h3>
+
+        <div class="grid">
+
+          <div>
+            <h3>1️⃣ Measure Actual Outcomes</h3>
+            <p>
+              Compare every recommended visit with the actual field result:
+              fault found, no fault found, or no access.
+            </p>
+          </div>
+
+          <div>
+            <h3>2️⃣ Reassess the Score</h3>
+            <p>
+              Use the new evidence to check whether the current
+              <b>70/30 weighting</b> should remain or be recalibrated.
+            </p>
+          </div>
+
+          <div>
+            <h3>3️⃣ Recalculate the Cost</h3>
+            <p>
+              Measure the real cost of unnecessary visits versus the cost of
+              leaving a faulty gateway unattended.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="formula" style="font-size:18px;">
+        Current Evidence → Field Outcomes → Measure → Recalibrate → Improve
+      </div>
+
+      <div class="highlight" style="
+        margin-top:25px;
+        background:#f8fafc;
+        border-left:5px solid #475569;
+      ">
+        <h3 style="margin-top:0;">💡 Honest Conclusion</h3>
+        <p>
+          The current solution should be viewed as a
+          <b>practical prioritization system</b>, not a perfect failure predictor.
+          Its biggest opportunity is to learn from the actual outcomes of future
+          field visits.
+        </p>
+      </div>
+
+      <p class="sub" style="text-align:center;margin-top:25px;">
+        <b>
+          The next improvement should come from better evidence, not simply
+          from making the model more complicated.
+        </b>
+      </p>
+
+    </section>
+
+    <section>
+      <section id="gallery">
+        <h2>16. Project Images</h2>
+        <p class="sub">Add your project screenshots, presentation slides, circuit diagrams, results and other images
+          here.
+        </p>
+
+        <div class="grid">
+
+          <div class="card">
+            <h3>Project Image 1</h3>
+
+            <img class="chart zoomable-image" src="Image 1.jpeg" alt="Project image 1" onclick="openImage(this)">
+
+            <p class="small">Click the image to zoom and view full screen.</p>
+          </div>
+
+          <div class="card">
+            <h3>Project Image 2</h3>
+
+            <img class="chart zoomable-image" src="Image 2.jpeg" alt="Project image 2" onclick="openImage(this)">
+
+            <p class="small">Click the image to zoom and view full screen.</p>
+          </div>
+
+          <div class="card">
+            <h3>Project Image 3</h3>
+
+            <img class="chart zoomable-image" src="Image 3.jpeg" alt="Project image 3" onclick="openImage(this)">
+
+            <p class="small">Click the image to zoom and view full screen.</p>
+          </div>
+
+
+
+
+        </div>
+      </section>
+
+      <section id="conclusion">
+        <h2>15. Final Conclusion</h2>
+
+        <div class="highlight">
+          <h3 style="margin-top:0;">From Data → Decision → Action 🚀</h3>
+
+          <p>
+            The goal was not simply to identify faulty gateways.
+            The real challenge was to decide <b>where the next 15 field visits
+              can create the most value</b>.
+          </p>
+
+          <p>
+            Our solution converts recent gateway reliability signals into a
+            <b>transparent risk score</b>, ranks all gateways, and gives the
+            operations team a clear weekly priority list with a reason for
+            every selection.
+          </p>
+        </div>
+
+        <div class="grid" style="margin-top:20px;">
+
+          <div class="card">
+            <h3>📊 Data</h3>
+            <p>
+              Recent telemetry is transformed into meaningful reliability
+              signals instead of relying on raw data alone.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>🎯 Decision</h3>
+            <p>
+              A simple 70/30 risk score identifies the gateways with the
+              highest estimated reliability risk.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>🚗 Action</h3>
+            <p>
+              The operations team receives exactly <b>15 prioritized gateways</b>
+              to visit each week.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="formula" style="margin-top:25px;">
+          Recent Data → Risk Score → Priority Ranking → 15 Field Visits
+        </div>
+
+        <div class="highlight">
+          <b>The key takeaway:</b>
+          A good data solution is not only about predicting what might happen.
+          It is about turning limited information and limited resources into a
+          <b>clear, explainable and actionable decision</b>.
+        </div>
+
+        <p class="sub" style="text-align:center;margin-top:25px;">
+        </p>
+      </section>
+    </section>
+    <footer><b>NEXORA 2026 — LPDG × RGM Innovation Challenge</b><br>Data Science Track · Gateway Visit Prioritization
+    </footer>
+
+    <script>
+      const fileInput = null;
+      const preview = null;
+      if (fileInput) {
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files[0];
+          if (!file) return;
+          preview.src = URL.createObjectURL(file);
+          preview.style.display = 'block';
+          preview.play().catch(() => { });
+        });
+      }
+    </script>
+
+    <div id="imageModal" class="image-modal">
+
+      <span class="close-image" onclick="closeImage()">×</span>
+
+      <img id="largeImage" src="" alt="Full size project image">
+
+      <div class="image-controls">
+        <button onclick="zoomOut()">− Zoom Out</button>
+        <button onclick="resetZoom()">Reset</button>
+        <button onclick="zoomIn()">+ Zoom In</button>
+        <button onclick="fullScreenImage()">⛶ Full Screen</button>
+      </div>
+
+    </div>
+    <script>
+      let currentZoom = 1;
+
+      function openImage(image) {
+        const modal = document.getElementById("imageModal");
+        const largeImage = document.getElementById("largeImage");
+
+        largeImage.src = image.src;
+        currentZoom = 1;
+        largeImage.style.transform = "scale(1)";
+
+        modal.style.display = "flex";
+      }
+
+      function closeImage() {
+        document.getElementById("imageModal").style.display = "none";
+      }
+
+      function zoomIn() {
+        currentZoom += 0.25;
+        document.getElementById("largeImage").style.transform =
+          `scale(${currentZoom})`;
+      }
+
+      function zoomOut() {
+        if (currentZoom > 0.5) {
+          currentZoom -= 0.25;
+        }
+
+        document.getElementById("largeImage").style.transform =
+          `scale(${currentZoom})`;
+      }
+
+      function resetZoom() {
+        currentZoom = 1;
+
+        document.getElementById("largeImage").style.transform =
+          "scale(1)";
+      }
+
+      function fullScreenImage() {
+        const image = document.getElementById("largeImage");
+
+        if (image.requestFullscreen) {
+          image.requestFullscreen();
+        }
+      }
+
+      document.getElementById("imageModal").addEventListener("click", function (e) {
+        if (e.target === this) {
+          closeImage();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeImage();
+        }
+      });
+    </script>
+
+</body>
+
+</html>
