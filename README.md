@@ -237,11 +237,7 @@ Additional weeks of prediction-versus-field outcomes would allow the score weigh
 
 ## Running the solution
 
-
-
 From the project root:
-
-
 
 ```text
 python create_predictions.py
