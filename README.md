@@ -145,9 +145,9 @@ The Data Science analysis considers the operational costs:
 
 
 
-- 380 for a wrong visit
-
-- 600 for leaving a broken gateway unattended for one week
+- €380 for a dispatched field visit
+  
+- €600 per faulty gateway per week when it remains unattended
 
 
 
