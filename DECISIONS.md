@@ -112,11 +112,11 @@ A more complicated model was not selected because the additional complexity did 
 
 
 
-We selected the Data Science track.
+I selected the Data Science track.
 
 
 
-We chose Data Science because the main challenge is a decision problem: selecting 15 gateways from approximately 320 gateways while balancing the cost of unnecessary visits against the cost of leaving a broken gateway unattended.
+I chose Data Science because the main challenge is a decision problem: selecting 15 gateways from approximately 320 gateways while balancing the cost of unnecessary visits against the cost of leaving a broken gateway unattended.
 
 
 
